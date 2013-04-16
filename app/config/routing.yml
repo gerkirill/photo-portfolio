@@ -1,0 +1,5 @@
+application_portfolio:
+    resource: "@ApplicationPortfolioBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
