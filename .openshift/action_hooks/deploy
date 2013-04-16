@@ -9,6 +9,15 @@ $cmd = "ln -s {$repoDir}web {$repoDir}php";
 echo $cmd . "\n";
 echo `$cmd`;
 
+$dataDir = getenv('OPENSHIFT_DATA_DIR');
+$vendorsDir = "{$dataDir}symfony2_vendor";
+if (!is_dir($vendorsDir)) {
+	mkdir($vendorsDir);
+}
+$cmd = "ln -s {$vendorsDir} {$repoDir}vendor";
+echo $cmd . "\n";
+echo `$cmd`;
+
 chdir($repoDir);
 echo `curl -sS https://getcomposer.org/installer | php`;
 
