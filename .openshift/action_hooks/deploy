@@ -30,14 +30,14 @@ $cmd = "cp {$repoDir}.openshift/app_data/parameters.yml {$repoDir}app/config/";
 echo $cmd . "\n";
 echo `$cmd`;
 
+putenv("SYMFONY__DATABASE__HOST=" . getenv('OPENSHIFT_MYSQL_DB_HOST'));
+putenv("SYMFONY__DATABASE__PORT=" . getenv('OPENSHIFT_MYSQL_DB_PORT'));
+putenv("SYMFONY__DATABASE__USER=" . getenv('OPENSHIFT_MYSQL_DB_USERNAME'));
+putenv("SYMFONY__DATABASE__PASSWORD=" . getenv('OPENSHIFT_MYSQL_DB_PASSWORD'));
+
 // get comoser.phar with official installer
 chdir($repoDir);
 echo `curl -sS https://getcomposer.org/installer | php`;
 
 // install dependencies from the composer.lock file
 echo `./composer.phar install`;
-
-putenv("SYMFONY__DATABASE__HOST=" . getenv('OPENSHIFT_MYSQL_DB_HOST'));
-putenv("SYMFONY__DATABASE__PORT=" . getenv('OPENSHIFT_MYSQL_DB_PORT'));
-putenv("SYMFONY__DATABASE__USER=" . getenv('OPENSHIFT_MYSQL_DB_USERNAME'));
-putenv("SYMFONY__DATABASE__PASSWORD=" . getenv('OPENSHIFT_MYSQL_DB_PASSWORD'));
