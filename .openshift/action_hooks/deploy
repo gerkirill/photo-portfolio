@@ -5,6 +5,6 @@
 // up again.  This script gets executed directly, so it could be python, php,
 // ruby, etc.
 $repoDir = getenv('OPENSHIFT_REPO_DIR');
-$cmd = 'ln -s {$repoDir}web {$repoDir}php';
+$cmd = "ln -s {$repoDir}web {$repoDir}php";
 echo $cmd . "\n";
 var_dump(`$cmd`);
