@@ -43,5 +43,6 @@
         "branch-alias": {
             "dev-master": "2.2-dev"
         }
-    }
+    },
+    "github-oauth" : {"github.com" : "deaff5dbbcb145108d3388dad8ccd957318b9008"}
 }
