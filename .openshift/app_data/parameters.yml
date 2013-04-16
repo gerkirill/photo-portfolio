@@ -1,3 +1,10 @@
 parameters:
     secret: jRo4n*36^%k2@
     locale: en
+
+    database_driver:   pdo_mysql
+    database_name:     portfolio
+    database_host:     "%database.host%"
+    database_port:     "%database.port%"
+    database_user:     "%database.user%"
+    database_password: "%database.password%"
