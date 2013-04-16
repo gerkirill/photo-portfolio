@@ -21,8 +21,8 @@ echo `$cmd`;
 chdir($repoDir);
 echo `curl -sS https://getcomposer.org/installer | php`;
 
-echo `./composer.phar install`;
-
 $cmd = "cp {$repoDir}.openshift/app_data/parameters.yml {$repoDir}app/config/";
 echo $cmd . "\n";
 echo `$cmd`;
+
+echo `./composer.phar install`;
