@@ -7,4 +7,9 @@
 $repoDir = getenv('OPENSHIFT_REPO_DIR');
 $cmd = "ln -s {$repoDir}web {$repoDir}php";
 echo $cmd . "\n";
-var_dump(`$cmd`);
+echo `$cmd`;
+
+chdir($repoDir);
+echo `curl -sS https://getcomposer.org/installer | php`;
+
+echo `./composer.phar install`;
