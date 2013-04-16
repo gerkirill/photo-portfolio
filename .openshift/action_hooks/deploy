@@ -6,4 +6,5 @@
 // ruby, etc.
 $repoDir = getenv('OPENSHIFT_REPO_DIR');
 $cmd = 'ln -s {$repoDir}web {$repoDir}php';
-`$cmd`;
+echo $cmd . "\n";
+var_dump(`$cmd`);
