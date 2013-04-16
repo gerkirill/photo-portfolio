@@ -4,11 +4,17 @@
 // build hook has been run but before the application has been started back
 // up again.  This script gets executed directly, so it could be python, php,
 // ruby, etc.
+
+// symlink "web" folder, default webroot in symfony 2 to "php" - webroot
+// recognized by openshift
 $repoDir = getenv('OPENSHIFT_REPO_DIR');
 $cmd = "ln -s {$repoDir}web {$repoDir}php";
 echo $cmd . "\n";
 echo `$cmd`;
 
+// to persist vendor code in a place which is not reset upon each deploy - 
+// create "symfony2_vendor" subfolder under OPENSHIFT_DATA_DIR and 
+// symlink it as "vendors" 
 $dataDir = getenv('OPENSHIFT_DATA_DIR');
 $vendorsDir = "{$dataDir}symfony2_vendor";
 if (!is_dir($vendorsDir)) {
@@ -18,11 +24,15 @@ $cmd = "ln -s {$vendorsDir} {$repoDir}vendor";
 echo $cmd . "\n";
 echo `$cmd`;
 
-chdir($repoDir);
-echo `curl -sS https://getcomposer.org/installer | php`;
-
+// copy parameters.yml file, required by symfony (also by hook scripts 
+// started by composer) from .openshift/app_data folder
 $cmd = "cp {$repoDir}.openshift/app_data/parameters.yml {$repoDir}app/config/";
 echo $cmd . "\n";
 echo `$cmd`;
 
+// get comoser.phar with official installer
+chdir($repoDir);
+echo `curl -sS https://getcomposer.org/installer | php`;
+
+// install dependencies from the composer.lock file
 echo `./composer.phar install`;
