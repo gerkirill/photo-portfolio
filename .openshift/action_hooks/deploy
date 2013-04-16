@@ -30,6 +30,7 @@ $cmd = "cp {$repoDir}.openshift/app_data/parameters.yml {$repoDir}app/config/";
 echo $cmd . "\n";
 echo `$cmd`;
 
+// TODO: this probably may disappear from env upon app restart - to be checked
 putenv("SYMFONY__DATABASE__HOST=" . getenv('OPENSHIFT_MYSQL_DB_HOST'));
 putenv("SYMFONY__DATABASE__PORT=" . getenv('OPENSHIFT_MYSQL_DB_PORT'));
 putenv("SYMFONY__DATABASE__USER=" . getenv('OPENSHIFT_MYSQL_DB_USERNAME'));
