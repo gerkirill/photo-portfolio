@@ -1,4 +1,5 @@
 <?php
+ignore_user_abort(true);
 ob_implicit_flush(true);
 set_time_limit(0);
 chdir(dirname(__DIR__));
