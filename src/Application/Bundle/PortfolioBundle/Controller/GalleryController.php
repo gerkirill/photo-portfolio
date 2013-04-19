@@ -17,8 +17,10 @@ class GalleryController extends Controller
      */
     public function indexAction()
     {
-    	$menu = $this->getMenu();
-		return array('all_menu' => $menu);
+    	$repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
+		$images = $repository->findAll();
+		$menu = $this->getMenu();
+		return array('all_menu' => $menu, 'images' => $images);
     }
 	
 	function getMenu()

@@ -1,0 +1,20 @@
+<div id="nav">
+	<ul>
+		{% for menu in all_menu.main_menu  %}
+		<li>
+			<a href="#">{{ menu }}</a>
+			{% for p in all_menu.parent  %}
+				{% if p == menu %}
+				<ul class="child_menu">
+					{% for menu_ch in all_menu.child_menu  %}
+						{% if menu_ch.parent == menu %}
+							<li><a href="#">{{ menu_ch.child }}</a></li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+				{% endif %}
+			{% endfor %}
+		</li>
+		{% endfor %}
+	</ul>
+</div>
