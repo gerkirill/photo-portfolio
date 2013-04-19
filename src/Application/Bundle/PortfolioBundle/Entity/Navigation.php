@@ -1,5 +1,5 @@
 <?php
-namespace Application\PortfolioBundle\Entity;
+namespace Application\Bundle\PortfolioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 /**
@@ -35,6 +35,14 @@ class Navigation
 	
 	public function getParentId() {
 		return $this->parentId;
+	}
+	
+	public function setName($name) {
+		$this->name = $name;
+	}
+	
+	public function setParentId($parentId) {
+		$this->parentId = $parentId;
 	}
 }
 ?>

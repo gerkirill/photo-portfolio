@@ -2,10 +2,23 @@
 
 {% block header %}
 	<div id="logo"></div>
-	<div id="menu">
+	<div id="nav">
 		<ul>
-			{% for menu in menus  %}
-			<li><a href="#">{{ menu }}</a></li>
+			{% for menu in all_menu.main_menu  %}
+			<li>
+				<a href="#">{{ menu }}</a>
+				{% for p in all_menu.parent  %}
+					{% if p == menu %}
+					<ul>
+						{% for menu_ch in all_menu.child_menu  %}
+							{% if menu_ch.parent == menu %}
+								<li><a href="#">{{ menu_ch.child }}</a></li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+					{% endif %}
+				{% endfor %}
+			</li>
 			{% endfor %}
 		</ul>
 	</div>

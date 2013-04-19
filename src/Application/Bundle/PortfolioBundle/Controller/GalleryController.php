@@ -17,10 +17,24 @@ class GalleryController extends Controller
      */
     public function indexAction()
     {
-    	$repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Navigation');
-		$menu = $repository->findAll();
-		
-		//return new Response('Gallery index page');
-		return array('menus' => $menu);
+    	$menu = $this->getMenu();
+		return array('all_menu' => $menu);
     }
+	
+	function getMenu()
+	{
+		$repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Navigation');
+		$menu = $repository->findAll();
+		$child_menu = $parent = array();
+		foreach ($menu as $m) {
+			if($m->getParentId() == 0) {
+				$main_menu[] = $m->getName();
+			} else {
+				$parent_name = $repository->find($m->getParentId())->getName();
+				$child_menu[] = array('parent' => $parent_name, 'child' => $m->getName());
+				$parent[$m->getParentId()] = $parent_name;
+			}
+		}
+		return array('main_menu' => $main_menu, 'child_menu' => $child_menu, 'parent' => $parent);
+	}
 }
