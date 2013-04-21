@@ -6,14 +6,37 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * Class DefaultController
+ * @Route("/design")
+ */
 class DefaultController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+        return array();
     }
+
+	/**
+	 * @Route("/menu", name="menu")
+	 * @Template()
+	 */
+	public function menuAction()
+	{
+		return array();
+	}
+
+	/**
+	 * @Route("/slider", name="slider")
+	 * @Template()
+	 */
+	public function sliderAction()
+	{
+		return array();
+	}
+
 }
