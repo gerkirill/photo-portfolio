@@ -1,10 +1,12 @@
 .wrapper {text-align: center}
-.column {width: 785px; text-align: left; margin: 0 auto; height:600px; border:1px solid black}
+.column {width: 85%; text-align: left; margin: 0 auto; height:600px; border:1px solid black; height:auto; overflow:hidden}
 .header {height:30px}
 #cssmenu{margin-bottom:2px}
-.big-image-container {width:705px; height:470px; border:1px solid #A59791}
+.big-image-container { width:auto; overflow:hidden; border:1px solid #A59791}
+    .big-image {max-width:100%; display:block}
 .slider {width:78px; margin-top:-4px}
     .slider-item-link {display:block; margin: 5px 2px 5px 2px}
         .slider-image {border: 1px solid #A59791; display:block}
 
 .fl{float:left}
+.fr{float:right}
