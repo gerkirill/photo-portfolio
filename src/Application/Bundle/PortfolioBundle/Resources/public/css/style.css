@@ -4,7 +4,14 @@
 #cssmenu{margin-bottom:2px}
 .big-image-container { width:auto; overflow:hidden; border:1px solid #A59791}
     .big-image {max-width:100%; display:block}
-.slider {width:78px; margin-top:-4px}
+.slider {
+	width:78px;
+	/* line-up top with the big image */
+	margin-top:-4px;
+	/* set height only as for single image - that will make visible only images in
+	this column which feet into container */
+	height:78px;
+}
     .slider-item-link {display:block; margin: 5px 2px 5px 2px}
         .slider-image {border: 1px solid #A59791; display:block}
 
