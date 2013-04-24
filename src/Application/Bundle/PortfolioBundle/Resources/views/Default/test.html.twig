@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}Сайт фотографа{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/menu.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/jquery.plupload.queue.css') }}" />
+	
+	<script type="text/javascript" src="{{ asset('//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('http://bp.yahooapis.com/2.4.21/browserplus-min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/plupload.full.js') }}"></script>
+	
+	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/jquery.plupload.queue.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/uploadFile.js') }}"></script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="column">
+            <div class="header">
+            </div>
+            <div class="gallery-container">
+                <div class="big-image-container">
+                    <img class="big-image" src="/{{ img }}" />
+                </div>
+				Upload
+				<div id="uploader"></div>
+            </div>
+
+            <div style="clear:both"></div>
+        </div> <!-- column -->
+    </div> <!-- wrapper -->
+</body>
+</html>

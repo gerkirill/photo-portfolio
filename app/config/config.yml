@@ -54,6 +54,8 @@ doctrine:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
 
+gregwar_image: ~
+
 # # Swiftmailer Configuration
 # swiftmailer:
 #     transport: %mailer_transport%
