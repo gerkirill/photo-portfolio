@@ -5,6 +5,7 @@ namespace Application\Bundle\PortfolioBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class DefaultController
@@ -18,7 +19,9 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        $repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
+		$images = $repository->findAll();
+		return array('images' => $images);
     }
 
 	/**
@@ -178,6 +181,12 @@ class DefaultController extends Controller
 			   }
 			}
 			@rmdir($targetDir);
+			/*$image = new Image();
+			$image->setName($fileName);
+			$image->setUrl('images/930x620/'.$fileName);
+			$em = $this->getDoctrine()->getEntityManager();
+			$em->persist($image);
+			$em->flush();*/
 		}
 
 		die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
