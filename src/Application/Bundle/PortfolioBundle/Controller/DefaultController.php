@@ -172,9 +172,9 @@ class DefaultController extends Controller
 			// Strip the temp .part suffix off 
 			rename("{$filePath}.part", $filePath);
 			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(72,72)->save('images/72x72/'.$fileName);
-			$this->get('image.handling')->open('uploads/'.$fileName)->cropResize(930,620)->save('images/930x620/'.$fileName);
-			$this->get('image.handling')->open('uploads/'.$fileName)->cropResize(705,470)->save('images/705x470/'.$fileName);
-			$this->get('image.handling')->open('uploads/'.$fileName)->cropResize(1150,770)->save('images/1150x770/'.$fileName);
+			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(930,620)->save('images/930x620/'.$fileName);
+			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(705,470)->save('images/705x470/'.$fileName);
+			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(1150,770)->save('images/1150x770/'.$fileName);
 			if ($objs = @glob($targetDir."/*")) {
 			   foreach($objs as $obj) {
 				@unlink($obj);
