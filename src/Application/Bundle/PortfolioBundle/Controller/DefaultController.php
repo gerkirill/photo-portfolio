@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use Application\Bundle\PortfolioBundle\Entity;
 
 /**
  * Class DefaultController
@@ -175,18 +176,21 @@ class DefaultController extends Controller
 			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(930,620)->save('images/930x620/'.$fileName);
 			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(705,470)->save('images/705x470/'.$fileName);
 			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(1150,770)->save('images/1150x770/'.$fileName);
+			
 			if ($objs = @glob($targetDir."/*")) {
 			   foreach($objs as $obj) {
 				@unlink($obj);
 			   }
 			}
 			@rmdir($targetDir);
-			/*$image = new Image();
+
+			$image = new Entity\Image;
 			$image->setName($fileName);
-			$image->setUrl('images/930x620/'.$fileName);
+			$image->setUrl($fileName);
+			$image->setNav_id(0);
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->persist($image);
-			$em->flush();*/
+			$em->flush();
 		}
 
 		die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
