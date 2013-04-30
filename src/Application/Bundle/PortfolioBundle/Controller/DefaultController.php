@@ -31,7 +31,9 @@ class DefaultController extends Controller
      */
     public function galleryAction()
     {
-        return array();
+        $repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
+		$image = $repository->find(1);
+		return array('image' => $image);
     }
 	
 	/**
@@ -49,7 +51,9 @@ class DefaultController extends Controller
 	 */
 	public function sliderAction()
 	{
-		return array();
+		$repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
+		$images = $repository->findAll();
+		return array('images' => $images);
 	}
 	
 	/**
