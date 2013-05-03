@@ -4,7 +4,7 @@ namespace Application\Bundle\PortfolioBundle\Service;
 use JMS\DiExtraBundle\Annotation\Service;
 
 /**
- * @Service("portfolio.uploader", public=true)
+ * @Service("portfolio.uploader", public=true) изменение для теста
  */
 class Uploader
 {
