@@ -1,14 +1,19 @@
-function rotate() {	
-	var current = ($('.big-image-container img.show')? $('.big-image-container img.show') : $('.big-image-container img:first'));
-	current.fadeOut("slow", function(next){
-		var next = ((current.next().length) ? ((current.next().hasClass('show')) ? $('.big-image-container img:first') :current.next()) : $('.big-image-container img:first'));  
-		$(this).removeClass('show');
-		next.addClass('show').fadeIn("slow");
-	});
-}
-$(document).ready(function(){
-	setInterval('rotate()',5000);
+jQuery(function($) {
+
+	// big image rotator (draft)
+	function rotate() {
+		var current = ($('.big-image-container img.show')? $('.big-image-container img.show') : $('.big-image-container img:first'));
+		current.fadeOut("slow", function(next){
+			var next = ((current.next().length) ? ((current.next().hasClass('show')) ? $('.big-image-container img:first') :current.next()) : $('.big-image-container img:first'));
+			$(this).removeClass('show');
+			next.addClass('show').fadeIn("slow");
+		});
+	}
+	setInterval(rotate, 5000);
+
+	// fancybox to edit main menu in admin mode
 	$(".fancybox").fancybox();
+	// page tree controls
 	$("#add-node").click(function () {
         $("#cssmenu-edit").jstree("create");
     });
@@ -18,7 +23,7 @@ $(document).ready(function(){
 	$("#rename-node").click(function () {
         $("#cssmenu-edit").jstree("rename");
     });
-
+	// create page tree
 	$("#cssmenu-edit").jstree({
         "ui" : {
             "initially_select" : [ "item-1" ]
