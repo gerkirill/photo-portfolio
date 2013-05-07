@@ -8,4 +8,8 @@ function rotate() {
 }
 $(document).ready(function(){
 	setInterval('rotate()',5000);
+	$(".fancybox").fancybox();
+	$("#cssmenu-edit").jstree({
+        "plugins" : [  "themes", "html_data", "ui", "crrm", "contextmenu", "sort", "dnd"]
+    });
 });
