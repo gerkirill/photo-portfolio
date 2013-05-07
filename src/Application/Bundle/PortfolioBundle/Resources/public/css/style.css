@@ -17,4 +17,5 @@
 
 .fl{float:left}
 .fr{float:right}
-#cssmenu-edit{display:none;min-width:300px;min-height:200px}
+#menu-edit{display:none;}
+#cssmenu-edit{min-width:300px;min-height:200px}

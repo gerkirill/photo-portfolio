@@ -21,9 +21,16 @@
             </div>
 			<div id='cssmenu'>
 			{% render url('menu') %}
-			<a class="fancybox" href='#cssmenu-edit'><i class="icon-pencil"></i></a>
+			<a class="fancybox" href='#menu-edit'><i class="icon-pencil"></i></a>
 			</div>
-			<div id="cssmenu-edit">{% render url('menu') %}</div>
+			<div id="menu-edit">
+				<div>
+					<span id="add-node">Добавить</span> <span id="delete-node">Удалить</span> <span id="rename-node">Переименовать</span>
+				</div>
+				<div  id="cssmenu-edit">
+					{% render url('menu') %}
+				</div>
+			</div>
             <div class="gallery-container">
 
                 <div class="big-image-container">

@@ -9,7 +9,20 @@ function rotate() {
 $(document).ready(function(){
 	setInterval('rotate()',5000);
 	$(".fancybox").fancybox();
+	$("#add-node").click(function () {
+        $("#cssmenu-edit").jstree("create");
+    });
+	$("#delete-node").click(function () {
+        $("#cssmenu-edit").jstree("remove");
+    });
+	$("#rename-node").click(function () {
+        $("#cssmenu-edit").jstree("rename");
+    });
+
 	$("#cssmenu-edit").jstree({
-        "plugins" : [  "themes", "html_data", "ui", "crrm", "contextmenu", "sort", "dnd"]
+        "ui" : {
+            "initially_select" : [ "item-1" ]
+        },
+		"plugins" : [  "themes", "html_data", "ui", "crrm"]
     });
 });
