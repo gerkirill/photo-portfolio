@@ -205,7 +205,7 @@ class DefaultController extends Controller
 	/**
 	 * @Route("/sortable", name="sortable")
 	 */
-	public function testAction()
+	public function sortableAction()
 	{
 		return array('data' => 'test');
 	}
