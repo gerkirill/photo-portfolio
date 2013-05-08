@@ -34,13 +34,14 @@ jQuery(function($) {
 	var photo = $( "#sortable" );
 	photo.sortable({
 		update: function(){
-			order = photo.sortable('toArray');
+			var order = photo.sortable('toArray');
+			$.post('/design/sortable', {items : order}, function(data){
+				/*if(data.result == 'ok'){
+					$(".text-success").show();
+				}*/
+			});
 		}
 	});
-	$('#save-sort').click(function() {
-		$.post('/sortable', {'items':order.join(',')}, function(data){
-			alert('пока все ОК ' + data);
-		});
-    });
+	
 	
 });

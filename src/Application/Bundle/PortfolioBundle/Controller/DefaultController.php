@@ -21,7 +21,10 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
-		$images = $repository->findAll();
+		$images = $repository->findBy(
+			array('nav_id' => 0),
+			array('sort' => 'ASC')
+		);
 		return array('images' => $images);
     }
 
@@ -32,7 +35,7 @@ class DefaultController extends Controller
     public function galleryAction()
     {
         $repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
-		$image = $repository->find(7);
+		$image = $repository->findOneBy(array('sort' => 0));
 		return array('image' => $image);
     }
 	
@@ -192,6 +195,7 @@ class DefaultController extends Controller
 			$image->setName($fileName);
 			$image->setUrl($fileName);
 			$image->setNav_id(0);
+			$image->setSort(0);
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->persist($image);
 			$em->flush();
@@ -207,7 +211,21 @@ class DefaultController extends Controller
 	 */
 	public function sortableAction()
 	{
-		return array('data' => 'test');
+		$request = $this->getRequest()->request->all();
+		$em = $this->getDoctrine()->getEntityManager();
+		$repository = $em->getRepository('ApplicationPortfolioBundle:Image');
+		
+		foreach($request['items'] as $key=>$item){
+			$id = substr(strstr($item, '_'), 1);
+			$image = $repository->find($id);
+			$image->setSort($key);
+			$em->persist($image);
+			$em->flush();
+		}
+		$data = json_encode(array('result' => 'ok'));
+		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
+		$responce = new Response( $data, 200, $headers );
+		return $responce;
 	}
 
 }

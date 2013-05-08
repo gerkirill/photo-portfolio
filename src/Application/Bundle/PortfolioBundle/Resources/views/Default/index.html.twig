@@ -48,10 +48,9 @@
 			<div id="photo-edit">
 				<ul id="sortable">
 					{% for img in images  %}
-						<li id="photo-{{ img.id }}" class="ui-state-default"><img class="big-image" src="/images/72x72/{{ img.url }}" /></li>
+						<li id="photo_{{ img.id }}" class="ui-state-default"><img class="big-image" src="/images/72x72/{{ img.url }}" /></li>
 					{% endfor %}
 				</ul>
-				<button id="save-sort" class="btn btn-primary" type="button">Сохранить порядок</button>
 			</div>
 
             <div style="clear:both"></div>
