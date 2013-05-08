@@ -23,7 +23,7 @@ class DefaultController extends Controller
         $repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
 		$images = $repository->findBy(
 			array('nav_id' => 0),
-			array('sort' => 'ASC')
+			array('sort' => 'ASC', 'id' => 'DESC')
 		);
 		return array('images' => $images);
     }
@@ -220,8 +220,9 @@ class DefaultController extends Controller
 			$image = $repository->find($id);
 			$image->setSort($key);
 			$em->persist($image);
-			$em->flush();
 		}
+		$em->flush();
+		
 		$data = json_encode(array('result' => 'ok'));
 		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
 		$responce = new Response( $data, 200, $headers );

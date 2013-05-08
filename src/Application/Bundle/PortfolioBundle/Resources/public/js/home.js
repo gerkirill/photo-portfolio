@@ -30,18 +30,38 @@ jQuery(function($) {
         },
 		"plugins" : [  "themes", "html_data", "ui", "crrm"]
     });
-	
-	var photo = $( "#sortable" );
-	photo.sortable({
+	//save sorting
+	$("#sortable").sortable({
 		update: function(){
-			var order = photo.sortable('toArray');
-			$.post('/design/sortable', {items : order}, function(data){
-				/*if(data.result == 'ok'){
-					$(".text-success").show();
-				}*/
-			});
+			var order = $("#sortable").sortable('toArray');
+			$.post('/design/sortable', {items : order});
 		}
 	});
 	
-	
+	$("#sortable").contextMenu({
+		selector: 'li', 
+		callback: function(key, options) {
+            var m = "clicked: " + key + " on " + $(this).attr('id');
+            window.console && console.log(m) || alert(m); 
+        },
+		items: {
+            "Удалить": {name: "Delete"},
+            "sep1": "---------",
+			"move":{
+				"name": "Переместить в...",
+				"items": {
+					"move-gallery-1": {"name": "галерея 1"},
+					"move-gallery-2": {"name": "галерея 2"},
+				}
+			},
+			"sep2": "---------",
+			"copy":{
+				"name": "Копировать в...",
+				"items": {
+					"copy-gallery-1": {"name": "галерея 1"},
+					"copy-gallery-2": {"name": "галерея 2"},
+				}
+			}
+        }
+	});
 });
