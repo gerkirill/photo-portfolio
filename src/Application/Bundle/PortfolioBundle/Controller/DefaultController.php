@@ -32,7 +32,7 @@ class DefaultController extends Controller
     public function galleryAction()
     {
         $repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
-		$image = $repository->find(1);
+		$image = $repository->find(7);
 		return array('image' => $image);
     }
 	
@@ -200,6 +200,14 @@ class DefaultController extends Controller
 		die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
 		
 		return array();
+	}
+	
+	/**
+	 * @Route("/sortable", name="sortable")
+	 */
+	public function testAction()
+	{
+		return array('data' => 'test');
 	}
 
 }

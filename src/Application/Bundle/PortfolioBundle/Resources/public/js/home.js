@@ -31,6 +31,16 @@ jQuery(function($) {
 		"plugins" : [  "themes", "html_data", "ui", "crrm"]
     });
 	
-	$( "#sortable" ).sortable();
+	var photo = $( "#sortable" );
+	photo.sortable({
+		update: function(){
+			order = photo.sortable('toArray');
+		}
+	});
+	$('#save-sort').click(function() {
+		$.post('/sortable', {'items':order.join(',')}, function(data){
+			alert('пока все ОК ' + data);
+		});
+    });
 	
 });
