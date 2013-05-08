@@ -29,6 +29,11 @@ class Image
      * @ORM\Column(type="integer")
      */
     protected $nav_id;
+	
+	/**
+     * @ORM\Column(type="integer")
+     */
+    protected $sort;
 
 	public function getID()
 	{
@@ -50,6 +55,11 @@ class Image
 		return $this->nav_id;
 	}
 	
+	public function getSort()
+	{
+		return $this->sort;
+	}
+	
 	public function setName($name)
 	{
 		$this->name = $name;
@@ -63,6 +73,11 @@ class Image
 	public function setNav_id($nav_id)
 	{
 		$this->nav_id = $nav_id;
+	}
+	
+	public function setSort($sort)
+	{
+		$this->sort = $sort;
 	}
 }
 ?>
