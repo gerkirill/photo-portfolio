@@ -30,4 +30,7 @@ jQuery(function($) {
         },
 		"plugins" : [  "themes", "html_data", "ui", "crrm"]
     });
+	
+	$( "#sortable" ).sortable();
+	
 });

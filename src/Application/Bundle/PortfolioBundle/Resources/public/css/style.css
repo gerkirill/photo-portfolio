@@ -17,5 +17,7 @@
 
 .fl{float:left}
 .fr{float:right}
-#menu-edit{display:none;}
-#cssmenu-edit{min-width:300px;min-height:200px}
+#menu-edit, #photo-edit{display:none;}
+#cssmenu-edit, #photo-edit{min-width:300px;min-height:200px}
+#sortable{list-style: none;margin: 0 auto;}
+#sortable li{float: left;}
