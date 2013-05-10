@@ -29,7 +29,23 @@ jQuery(function($) {
             "initially_select" : [ "item-1" ]
         },
 		"plugins" : [  "themes", "html_data", "ui", "crrm"]
-    });
+    }).bind("create.jstree", function (e, data){
+		$.post(
+			'/design/menu-edit',
+			{
+				"operation" : "create_node",
+				"id" : data.rslt.parent.attr("id").replace("item-",""),
+				"title" : data.rslt.name,
+			},
+			function(r){
+				if(r.status) {
+					$(data.rslt.obj).attr("id", "node_" + r.id);
+				}else {
+					$.jstree.rollback(data.rlbk);
+				}
+			}
+		);
+	});
 	// save sorting
 	$("#sortable").sortable({
 		update: function(){

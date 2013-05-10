@@ -264,5 +264,26 @@ class DefaultController extends Controller
 		$responce = new Response( $data, 200, $headers );
 		return $responce;
 	}
+	
+	/**
+	 * @Route("/menu-edit", name="menuEdit")
+	 */
+	public function menuEditAction()
+	{
+		$request = $this->getRequest()->request->all();
+		$em = $this->getDoctrine()->getEntityManager();
+		$repository = $em->getRepository('ApplicationPortfolioBundle:Image');
+		
+		$operation = $request['operation'];
+		$id = $request['id'];
+		$title = $request['title'];
+		$mes = 'error';
+		
+		
+		$data = json_encode(array('result' => $mes, 'id' => $id, 'operation' => $operation, 'status' => 'ok'));
+		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
+		$responce = new Response( $data, 200, $headers );
+		return $responce;
+	}
 
 }

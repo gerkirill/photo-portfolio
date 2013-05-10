@@ -19,6 +19,11 @@ class Navigation
      * @ORM\Column(type="string", length=255)
      */
 	protected $name;
+	
+	/**
+     * @ORM\Column(type="string", length=255)
+     */
+	protected $permalink;
 
     /**
      * @ORM\Column(type="integer")
@@ -43,6 +48,14 @@ class Navigation
 	
 	public function setParentId($parentId) {
 		$this->parentId = $parentId;
+	}
+	
+	public function getPermalink() {
+		return $this->permalink;
+	}
+	
+	public function setPermalink($permalink) {
+		$this->permalink = $permalink;
 	}
 }
 ?>
