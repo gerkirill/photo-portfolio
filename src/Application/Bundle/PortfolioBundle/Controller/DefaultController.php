@@ -228,5 +228,41 @@ class DefaultController extends Controller
 		$responce = new Response( $data, 200, $headers );
 		return $responce;
 	}
+	
+	/**
+	 * @Route("/photo-edit", name="photoEdit")
+	 */
+	public function photoEditAction()
+	{
+		$request = $this->getRequest()->request->all();
+		$em = $this->getDoctrine()->getEntityManager();
+		$repository = $em->getRepository('ApplicationPortfolioBundle:Image');
+		
+		$key = $request['key'];
+		$img_id = $request['img_id'];
+		$image = $repository->find($img_id);
+		$mes = 'error';
+		
+		if($key == 'Delete'){
+			$em->remove($image);
+			$mes = "delete";
+		}else{
+			$pos = strpos($key, '-');
+			$action = substr($key, 0, $pos);
+			$page = substr($key, $pos+1);
+			if($action == "move"){
+				$mes = "move";
+			}
+			if($action == "copy"){
+				$mes = "copy";
+			}
+		}
+		$em->flush();
+		
+		$data = json_encode(array('result' => $mes, 'img_id' => $img_id));
+		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
+		$responce = new Response( $data, 200, $headers );
+		return $responce;
+	}
 
 }

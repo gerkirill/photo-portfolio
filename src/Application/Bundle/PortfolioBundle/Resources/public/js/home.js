@@ -41,11 +41,15 @@ jQuery(function($) {
 	$("#sortable").contextMenu({
 		selector: 'li', 
 		callback: function(key, options) {
-            var m = "clicked: " + key + " on " + $(this).attr('id');
-            window.console && console.log(m) || alert(m); 
+			var img_id = $(this).attr('id').substring(6);
+			$.post('/design/photo-edit', {key : key, img_id : img_id}, function(data){
+				if(data.result == 'delete'){
+					$('li#photo_'+data.img_id).remove();
+				}
+			});
         },
 		items: {
-            "Удалить": {name: "Delete"},
+            "Delete": {name: "Удалить"},
             "sep1": "---------",
 			"move":{
 				"name": "Переместить в...",
