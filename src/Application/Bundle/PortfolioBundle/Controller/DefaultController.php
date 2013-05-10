@@ -104,7 +104,7 @@ class DefaultController extends Controller
 
 			$fileName = $fileName_a . '_' . $count . $fileName_b;
 		}
-		
+		$fileNameNew = 'image_'.date('dmYHis');
 		$filePath = $targetDir . '/' . $fileName;
 		
 		// Create target dir
@@ -179,10 +179,10 @@ class DefaultController extends Controller
 		if (!$chunks || $chunk == $chunks - 1) {
 			// Strip the temp .part suffix off 
 			rename("{$filePath}.part", $filePath);
-			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(72,72)->save('images/72x72/'.$fileName);
-			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(930,620)->save('images/930x620/'.$fileName);
-			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(705,470)->save('images/705x470/'.$fileName);
-			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(1150,770)->save('images/1150x770/'.$fileName);
+			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(72,72)->save('images/72x72/'.$fileNameNew);
+			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(930,620)->save('images/930x620/'.$fileNameNew);
+			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(705,470)->save('images/705x470/'.$fileNameNew);
+			$this->get('image.handling')->open('uploads/'.$fileName)->zoomCrop(1150,770)->save('images/1150x770/'.$fileNameNew);
 			
 			if ($objs = @glob($targetDir."/*")) {
 			   foreach($objs as $obj) {
@@ -192,8 +192,8 @@ class DefaultController extends Controller
 			@rmdir($targetDir);
 
 			$image = new Entity\Image;
-			$image->setName($fileName);
-			$image->setUrl($fileName);
+			$image->setName($fileNameNew);
+			$image->setUrl($fileNameNew);
 			$image->setNav_id(0);
 			$image->setSort(0);
 			$em = $this->getDoctrine()->getEntityManager();
