@@ -30,14 +30,14 @@ jQuery(function($) {
         },
 		"plugins" : [  "themes", "html_data", "ui", "crrm"]
     });
-	//save sorting
+	// save sorting
 	$("#sortable").sortable({
 		update: function(){
 			var order = $("#sortable").sortable('toArray');
 			$.post('/design/sortable', {items : order});
 		}
 	});
-	
+	// create context menu
 	$("#sortable").contextMenu({
 		selector: 'li', 
 		callback: function(key, options) {
@@ -45,6 +45,7 @@ jQuery(function($) {
 			$.post('/design/photo-edit', {key : key, img_id : img_id}, function(data){
 				if(data.result == 'delete'){
 					$('li#photo_'+data.img_id).remove();
+					$('img#photo_'+data.img_id).remove();
 				}
 			});
         },
