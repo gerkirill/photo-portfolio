@@ -26,9 +26,25 @@ class Navigation
 	protected $permalink;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity="Navigation", mappedBy="parent")
      */
-	protected $parentId;
+    protected $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Navigation", inversedBy="children")
+     * @ORM\JoinColumn(name="parentId", referencedColumnName="id")
+     */
+    protected $parent;
+
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
+    }
 	
 	public function getId() {
 		return $this->id;
@@ -37,17 +53,17 @@ class Navigation
 	public function getName() {
 		return $this->name;
 	}
-	
-	public function getParentId() {
-		return $this->parentId;
+
+	public function getParent() {
+		return $this->parent;
 	}
 	
 	public function setName($name) {
 		$this->name = $name;
 	}
 	
-	public function setParentId($parentId) {
-		$this->parentId = $parentId;
+	public function setParent(Navigation $parent) {
+		$this->parent = $parent;
 	}
 	
 	public function getPermalink() {
