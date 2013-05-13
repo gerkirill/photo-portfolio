@@ -280,7 +280,7 @@ class DefaultController extends Controller
 		$operation = $request['operation'];
 		$id = $request['id'];
 		$mes = 'error';
-		$status = '';
+		$status = 'ok';
 		$menu = $repositoryNav->find($id);
 		
 		if($operation == 'create_node'){
@@ -293,7 +293,6 @@ class DefaultController extends Controller
 			$em->persist($nav);
 			$em->flush();
 			$id = $nav->getId();
-			$status = 'ok';
 		}
 		
 		if($operation == 'remove_node'){
@@ -303,11 +302,14 @@ class DefaultController extends Controller
 				}
 			}
 			$em->remove($menu);
-			$em->flush();
-			$status = 'ok';
 		}
 		
-		
+		if($operation == 'rename_node'){
+			$title = $request['title'];
+			$menu->setName($title);
+			$em->persist($menu);
+		}
+		$em->flush();
 		$data = json_encode(array('result' => $mes, 'id' => $id, 'operation' => $operation, 'status' => $status));
 		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
 		$responce = new Response( $data, 200, $headers );

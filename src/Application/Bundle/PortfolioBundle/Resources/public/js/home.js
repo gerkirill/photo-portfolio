@@ -51,7 +51,7 @@ jQuery(function($) {
 				'/design/menu-edit',
 				{
 					"operation" : "remove_node",
-					"id" : this.id.replace("item-",""),
+					"id" : this.id.replace("item-","")
 				},
 				function(r){
 					if(!r.status) {
@@ -60,6 +60,20 @@ jQuery(function($) {
 				}
 			);
 		});
+	}).bind("rename.jstree", function (e, data) {
+			$.post(
+				'/design/menu-edit',
+				{
+					"operation" : "rename_node",
+					"id" : data.rslt.obj.attr("id").replace("item-",""),
+					"title" : data.rslt.new_name
+				},
+				function(r){
+					if(!r.status) {
+						$.jstree.rollback(data.rlbk);
+					}
+				}
+			);
 	});
 	// save sorting
 	$("#sortable").sortable({
