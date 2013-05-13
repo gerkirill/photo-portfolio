@@ -35,6 +35,11 @@ class Navigation
      * @ORM\JoinColumn(name="parentId", referencedColumnName="id")
      */
     protected $parent;
+	
+	/**
+     * @ORM\Column(type="integer")
+     */
+	protected $toplevel;
 
     public function __construct()
     {
