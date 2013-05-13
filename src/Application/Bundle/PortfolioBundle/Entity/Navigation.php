@@ -78,5 +78,13 @@ class Navigation
 	public function setPermalink($permalink) {
 		$this->permalink = $permalink;
 	}
+	
+	public function getToplevel() {
+		return $this->toplevel;
+	}
+	
+	public function setToplevel($toplevel) {
+		$this->toplevel = $toplevel;
+	}
 }
 ?>
