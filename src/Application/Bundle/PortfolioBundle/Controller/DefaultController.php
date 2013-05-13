@@ -274,12 +274,24 @@ class DefaultController extends Controller
 	{
 		$request = $this->getRequest()->request->all();
 		$em = $this->getDoctrine()->getEntityManager();
-		$repository = $em->getRepository('ApplicationPortfolioBundle:Image');
+		$repositoryImg = $em->getRepository('ApplicationPortfolioBundle:Image');
+		$repositoryNav = $em->getRepository('ApplicationPortfolioBundle:Navigation');
 		
 		$operation = $request['operation'];
 		$id = $request['id'];
 		$title = $request['title'];
 		$mes = 'error';
+		
+		if($operation == 'create_node'){
+			$nav = new Entity\Navigation;
+			$nav->setName($title);
+			$nav->setPermalink('');
+			$nav->setParent($repositoryNav->find($id));
+			$nav->setToplevel(0);
+			$em->persist($nav);
+			$em->flush();
+			$id = $nav->getId();
+		}
 		
 		
 		$data = json_encode(array('result' => $mes, 'id' => $id, 'operation' => $operation, 'status' => 'ok'));
