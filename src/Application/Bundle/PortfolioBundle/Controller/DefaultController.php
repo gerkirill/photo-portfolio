@@ -279,22 +279,36 @@ class DefaultController extends Controller
 		
 		$operation = $request['operation'];
 		$id = $request['id'];
-		$title = $request['title'];
 		$mes = 'error';
+		$status = '';
+		$menu = $repositoryNav->find($id);
 		
 		if($operation == 'create_node'){
+			$title = $request['title'];
 			$nav = new Entity\Navigation;
 			$nav->setName($title);
 			$nav->setPermalink('');
-			$nav->setParent($repositoryNav->find($id));
+			$nav->setParent($menu);
 			$nav->setToplevel(0);
 			$em->persist($nav);
 			$em->flush();
 			$id = $nav->getId();
+			$status = 'ok';
+		}
+		
+		if($operation == 'remove_node'){
+			if(count($menu->getChildren()) > 0){
+				foreach($menu->getChildren() as $nav){
+					$em->remove($nav);
+				}
+			}
+			$em->remove($menu);
+			$em->flush();
+			$status = 'ok';
 		}
 		
 		
-		$data = json_encode(array('result' => $mes, 'id' => $id, 'operation' => $operation, 'status' => 'ok'));
+		$data = json_encode(array('result' => $mes, 'id' => $id, 'operation' => $operation, 'status' => $status));
 		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
 		$responce = new Response( $data, 200, $headers );
 		return $responce;

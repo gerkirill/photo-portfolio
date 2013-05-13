@@ -39,12 +39,27 @@ jQuery(function($) {
 			},
 			function(r){
 				if(r.status) {
-					$(data.rslt.obj).attr("id", "node_" + r.id);
+					$(data.rslt.obj).attr("id", "item-" + r.id);
 				}else {
 					$.jstree.rollback(data.rlbk);
 				}
 			}
 		);
+	}).bind("remove.jstree", function (e, data) {
+		data.rslt.obj.each(function () {
+			$.post(
+				'/design/menu-edit',
+				{
+					"operation" : "remove_node",
+					"id" : this.id.replace("item-",""),
+				},
+				function(r){
+					if(!r.status) {
+						data.inst.refresh();
+					}
+				}
+			);
+		});
 	});
 	// save sorting
 	$("#sortable").sortable({
