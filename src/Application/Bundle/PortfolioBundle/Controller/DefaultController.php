@@ -45,6 +45,15 @@ class DefaultController extends Controller
 	 */
 	public function menuAction()
 	{
+		return array();
+	}
+	
+	/**
+	 * @Route("/listMenu", name="listMenu")
+	 * @Template()
+	 */
+	public function listMenuAction()
+	{
 		$repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Navigation');
 		$nav = $repository->findBy(array('toplevel' => 1));
 		return array('nav' => $nav);

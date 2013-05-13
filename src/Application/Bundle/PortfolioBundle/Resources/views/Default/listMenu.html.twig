@@ -1,0 +1,15 @@
+<ul>
+{% for menu in nav  %}
+	{% if menu.getChildren().count > 0 %}
+		<li id="item-{{ menu.id }}" class='has-sub '><a href='#'><span>{{ menu.name }}</span></a>
+			<ul>
+				{% for child in menu.getChildren()  %}
+					<li id="item-{{ child.id }}"><a href='#'><span>{{ child.name }}</span></a></li>
+				{% endfor %}
+			</ul>
+		</li>
+	{% else %}
+		<li id="item-{{ menu.id }}"><a href='#'><span>{{ menu.name }}</span></a></li>
+	{% endif %}
+{% endfor %}
+</ul>

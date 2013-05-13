@@ -1,15 +1,14 @@
-<ul>
-{% for menu in nav  %}
-	{% if menu.getChildren().count > 0 %}
-		<li id="item-{{ menu.id }}" class='has-sub '><a href='#'><span>{{ menu.name }}</span></a>
-			<ul>
-				{% for child in menu.getChildren()  %}
-					<li id="item-{{ child.id }}"><a href='#'><span>{{ child.name }}</span></a></li>
-				{% endfor %}
-			</ul>
-		</li>
-	{% else %}
-		<li id="item-{{ menu.id }}"><a href='#'><span>{{ menu.name }}</span></a></li>
-	{% endif %}
-{% endfor %}
-</ul>
+<div id='cssmenu'>
+	{% render url('listMenu') %}
+	<a class="fancybox" href='#menu-edit'><i class="icon-pencil"></i></a>
+</div>
+<div id="menu-edit">
+	<div>
+		<span id="add-node" class="btn btn-primary">Добавить</span> 
+		<span id="delete-node" class="btn btn-danger">Удалить</span> 
+		<span id="rename-node" class="btn btn-info">Переименовать</span>
+	</div>
+	<div  id="cssmenu-edit">
+		{% render url('listMenu') %}
+	</div>
+</div>
