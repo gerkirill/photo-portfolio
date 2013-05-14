@@ -9,82 +9,91 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Navigation
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+	/**
+	 * @ORM\Id
+	 * @ORM\Column(type="integer")
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
 	protected $id;
-	
+
 	/**
-     * @ORM\Column(type="string", length=255)
-     */
+	 * @ORM\Column(type="string", length=255)
+	 */
 	protected $name;
-	
+
 	/**
-     * @ORM\Column(type="string", length=255)
-     */
+	 * @ORM\Column(type="string", length=255)
+	 */
 	protected $permalink;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Navigation", mappedBy="parent")
-     */
-    protected $children;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Navigation", inversedBy="children")
-     * @ORM\JoinColumn(name="parentId", referencedColumnName="id")
-     */
-    protected $parent;
-	
 	/**
-     * @ORM\Column(type="integer")
-     */
+	 * @ORM\OneToMany(targetEntity="Navigation", mappedBy="parent")
+	 */
+	protected $children;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity="Navigation", inversedBy="children")
+	 * @ORM\JoinColumn(name="parentId", referencedColumnName="id")
+	 */
+	protected $parent;
+
+	/**
+	 * @ORM\Column(type="integer")
+	 */
 	protected $toplevel;
 
-    public function __construct()
-    {
-        $this->children = new ArrayCollection();
-    }
+	public function __construct()
+	{
+		$this->children = new ArrayCollection();
+	}
 
-    public function getChildren()
-    {
-        return $this->children;
-    }
-	
-	public function getId() {
+	public function getChildren()
+	{
+		return $this->children;
+	}
+
+	public function getId()
+	{
 		return $this->id;
 	}
-	
-	public function getName() {
+
+	public function getName()
+	{
 		return $this->name;
 	}
 
-	public function getParent() {
+	public function getParent()
+	{
 		return $this->parent;
 	}
-	
-	public function setName($name) {
+
+	public function setName($name)
+	{
 		$this->name = $name;
 	}
-	
-	public function setParent(Navigation $parent) {
+
+	public function setParent(Navigation $parent)
+	{
 		$this->parent = $parent;
 	}
-	
-	public function getPermalink() {
+
+	public function getPermalink()
+	{
 		return $this->permalink;
 	}
-	
-	public function setPermalink($permalink) {
+
+	public function setPermalink($permalink)
+	{
 		$this->permalink = $permalink;
 	}
-	
-	public function getToplevel() {
+
+	public function getToplevel()
+	{
 		return $this->toplevel;
 	}
-	
-	public function setToplevel($toplevel) {
+
+	public function setToplevel($toplevel)
+	{
 		$this->toplevel = $toplevel;
 	}
 }
