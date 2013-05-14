@@ -31,9 +31,8 @@ jQuery(function($) {
 		"plugins" : [  "themes", "html_data", "ui", "crrm"]
     }).bind("create.jstree", function (e, data){
 		$.post(
-			'/design/menu-edit',
+			'/design/menu-add',
 			{
-				"operation" : "create_node",
 				"id" : data.rslt.parent.attr("id").replace("item-",""),
 				"title" : data.rslt.name,
 			},
@@ -48,9 +47,8 @@ jQuery(function($) {
 	}).bind("remove.jstree", function (e, data) {
 		data.rslt.obj.each(function () {
 			$.post(
-				'/design/menu-edit',
+				'/design/menu-delete',
 				{
-					"operation" : "remove_node",
 					"id" : this.id.replace("item-","")
 				},
 				function(r){
@@ -64,7 +62,6 @@ jQuery(function($) {
 			$.post(
 				'/design/menu-edit',
 				{
-					"operation" : "rename_node",
 					"id" : data.rslt.obj.attr("id").replace("item-",""),
 					"title" : data.rslt.new_name
 				},

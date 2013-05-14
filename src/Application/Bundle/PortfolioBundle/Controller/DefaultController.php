@@ -283,43 +283,72 @@ class DefaultController extends Controller
 	{
 		$request = $this->getRequest()->request->all();
 		$em = $this->getDoctrine()->getEntityManager();
-		$repositoryImg = $em->getRepository('ApplicationPortfolioBundle:Image');
 		$repositoryNav = $em->getRepository('ApplicationPortfolioBundle:Navigation');
 		
-		$operation = $request['operation'];
+		$title = $request['title'];
 		$id = $request['id'];
-		$mes = 'error';
 		$status = 'ok';
 		$menu = $repositoryNav->find($id);
-		
-		if($operation == 'create_node'){
-			$title = $request['title'];
-			$nav = new Entity\Navigation;
-			$nav->setName($title);
-			$nav->setPermalink('');
-			$nav->setParent($menu);
-			$nav->setToplevel(0);
-			$em->persist($nav);
-			$em->flush();
-			$id = $nav->getId();
-		}
-		
-		if($operation == 'remove_node'){
-			if(count($menu->getChildren()) > 0){
-				foreach($menu->getChildren() as $nav){
-					$em->remove($nav);
-				}
-			}
-			$em->remove($menu);
-		}
-		
-		if($operation == 'rename_node'){
-			$title = $request['title'];
-			$menu->setName($title);
-			$em->persist($menu);
-		}
+		$menu->setName($title);
+		$em->persist($menu);
 		$em->flush();
-		$data = json_encode(array('result' => $mes, 'id' => $id, 'operation' => $operation, 'status' => $status));
+		
+		$data = json_encode(array('id' => $id, 'status' => $status));
+		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
+		$responce = new Response( $data, 200, $headers );
+		return $responce;
+	}
+	
+	/**
+	 * @Route("/menu-add", name="menuAdd")
+	 */
+	public function menuAddAction()
+	{
+		$request = $this->getRequest()->request->all();
+		$em = $this->getDoctrine()->getEntityManager();
+		$repositoryNav = $em->getRepository('ApplicationPortfolioBundle:Navigation');
+		
+		$title = $request['title'];
+		$id = $request['id'];
+		$menu = $repositoryNav->find($id);
+		
+		$nav = new Entity\Navigation;
+		$nav->setName($title);
+		$nav->setPermalink('');
+		$nav->setParent($menu);
+		$nav->setToplevel(0);
+		$em->persist($nav);
+		$em->flush();
+		$id = $nav->getId();
+		$status = 'ok';
+
+		$data = json_encode(array('id' => $id, 'status' => $status));
+		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
+		$responce = new Response( $data, 200, $headers );
+		return $responce;
+	}
+	
+	/**
+	 * @Route("/menu-delete", name="menuDelete")
+	 */
+	public function menuDeleteAction()
+	{
+		$request = $this->getRequest()->request->all();
+		$em = $this->getDoctrine()->getEntityManager();
+		$repositoryNav = $em->getRepository('ApplicationPortfolioBundle:Navigation');
+		
+		$id = $request['id'];
+		$menu = $repositoryNav->find($id);
+		if(count($menu->getChildren()) > 0){
+			foreach($menu->getChildren() as $nav){
+				$em->remove($nav);
+			}
+		}
+		$em->remove($menu);
+		$em->flush();
+		$status = 'ok';
+
+		$data = json_encode(array('id' => $id, 'status' => $status));
 		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
 		$responce = new Response( $data, 200, $headers );
 		return $responce;
