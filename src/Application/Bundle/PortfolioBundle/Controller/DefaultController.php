@@ -40,6 +40,18 @@ class DefaultController extends Controller
     }
 	
 	/**
+     * @Route("/portfolio/{gallery}", name="portfolio")
+     * @Template()
+     */
+    public function portfolioAction($gallery)
+    {
+        $repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
+		$nav = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Navigation')->findOneBy(array('permalink' => $gallery));
+		$image = $repository->findOneBy(array('sort' => 0, 'nav_id' => $nav->getId()));
+		return array('image' => $image);
+    }
+	
+	/**
 	 * @Route("/menu", name="menu")
 	 * @Template()
 	 */
