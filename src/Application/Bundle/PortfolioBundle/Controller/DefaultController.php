@@ -48,7 +48,11 @@ class DefaultController extends Controller
         $repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
 		$nav = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Navigation')->findOneBy(array('permalink' => $gallery));
 		$image = $repository->findOneBy(array('sort' => 0, 'nav_id' => $nav->getId()));
-		return array('image' => $image, 'permalink' => $gallery);
+		$images = $repository->findBy(
+			array('nav_id' => $nav->getId()),
+			array('sort' => 'ASC', 'id' => 'DESC')
+		);
+		return array('image' => $image, 'permalink' => $gallery, 'images' => $images);
     }
 	
 	/**

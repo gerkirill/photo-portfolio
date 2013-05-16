@@ -1,54 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{% block title %}Сайт фотографа{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/style.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/menu.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/bootstrap.min.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/jquery.fancybox.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/jquery-ui-1.10.3.custom.min.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/jquery.contextMenu.css') }}" />
-	
-	<script type="text/javascript" src="{{ asset('//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/home.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/jquery.fancybox.pack.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/jquery.jstree.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/jquery.contextMenu.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/jquery.ui.position.js') }}"></script>
-</head>
-<body>
-    <div class="wrapper">
-        <div class="column">
-            <div class="header">
+{% extends 'ApplicationPortfolioBundle::layout.html.twig' %}
 
-            </div>
+{% block body %}
+	<div class="gallery-container">
 
-			{% render url('menu') %}
+		<div class="big-image-container">
+			<a class="fancybox" href='#photo-edit'><i class="icon-pencil"></i></a>
+			<img class="big-image show" src="http://www.shtern.ru/storage/photos/21/0_ekatirina-stern-d913ba37d4d1b2b1c115a625a41d854e.jpg" style="width:100%"/>
+			{% for img in images  %}
+				<img id="photo_{{ img.id }}" class="big-image" src="/images/705x470/{{ img.url }}" style="width:100%;display:none;"/>
+			{% endfor %}
+			
+		</div>
 
-            <div class="gallery-container">
-
-                <div class="big-image-container">
-					<a class="fancybox" href='#photo-edit'><i class="icon-pencil"></i></a>
-					<img class="big-image show" src="http://www.shtern.ru/storage/photos/21/0_ekatirina-stern-d913ba37d4d1b2b1c115a625a41d854e.jpg" style="width:100%"/>
-					{% for img in images  %}
-						<img id="photo_{{ img.id }}" class="big-image" src="/images/705x470/{{ img.url }}" style="width:100%;display:none;"/>
-					{% endfor %}
-					
-                </div>
-
-            </div>
-			<div id="photo-edit">
-				<ul id="sortable">
-					{% for img in images  %}
-						<li id="photo_{{ img.id }}" class="ui-state-default"><img class="big-image" src="/images/72x72/{{ img.url }}" /></li>
-					{% endfor %}
-				</ul>
-			</div>
-
-            <div style="clear:both"></div>
-        </div> <!-- column -->
-    </div> <!-- wrapper -->
-</body>
-</html>
+	</div>
+	<div id="photo-edit">
+		<ul id="sortable">
+			{% for img in images  %}
+				<li id="photo_{{ img.id }}" class="ui-state-default"><img class="big-image" src="/images/72x72/{{ img.url }}" /></li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}

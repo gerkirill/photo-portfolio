@@ -3,12 +3,30 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>{% block title %}Сайт фотографа{% endblock %}</title>
+	
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/menu.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/bootstrap.min.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/jquery.fancybox.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/jquery-ui-1.10.3.custom.min.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/jquery.contextMenu.css') }}" />
+	
+	<script type="text/javascript" src="{{ asset('//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/home.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/jquery.fancybox.pack.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/jquery.jstree.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/jquery.contextMenu.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/applicationportfolio/js/jquery.ui.position.js') }}"></script>
 </head>
 <body>
-	<div id="content">
-		{% block header %}<div>Gallery index page</div>{% endblock %}
-		{% block body %}{% endblock %}
-		{% block footer %}{% endblock %}
-	</div>
+	<div class="wrapper">
+		<div class="column">
+			{% block header %}<div class="header"></div>{% endblock %}
+			{% render url('menu') %}
+			{% block body %}{% endblock %}
+			<div style="clear:both"></div>
+		</div> <!-- column -->
+	</div> <!-- wrapper -->
 </body>
 </html>
