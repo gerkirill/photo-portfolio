@@ -27,6 +27,15 @@ class DefaultController extends Controller
 		);
 		return array('images' => $images);
     }
+	
+	/**
+     * @Route("/about", name="about")
+     * @Template()
+     */
+    public function aboutAction()
+    {
+		return array();
+    }
 
 	/**
      * @Route("/gallery", name="gallery")
