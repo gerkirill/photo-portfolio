@@ -48,7 +48,7 @@ class DefaultController extends Controller
         $repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
 		$nav = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Navigation')->findOneBy(array('permalink' => $gallery));
 		$image = $repository->findOneBy(array('sort' => 0, 'nav_id' => $nav->getId()));
-		return array('image' => $image);
+		return array('image' => $image, 'slider_url' => $gallery);
     }
 	
 	/**
@@ -72,13 +72,14 @@ class DefaultController extends Controller
 	}
 
 	/**
-	 * @Route("/slider", name="slider")
+	 * @Route("/slider/{gallery}", name="slider")
 	 * @Template()
 	 */
-	public function sliderAction()
+	public function sliderAction($gallery)
 	{
 		$repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
-		$images = $repository->findAll();
+		$nav = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Navigation')->findOneBy(array('permalink' => $gallery));
+		$images = $repository->findBy(array('nav_id' => $nav->getId()));
 		return array('images' => $images);
 	}
 	

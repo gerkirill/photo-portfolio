@@ -18,7 +18,7 @@
 
             {% render url('menu') %}
             <div class="gallery-container">
-                {% render url('slider') %}
+                {% render url('slider', {'gallery' : slider_url }) %}
 
                 <div class="big-image-container">
                     <img class="big-image" src="/images/705x470/{{ image.url }}" style="width:100%"/>
