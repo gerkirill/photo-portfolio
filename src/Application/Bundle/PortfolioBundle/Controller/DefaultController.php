@@ -290,6 +290,7 @@ class DefaultController extends Controller
 		$status = 'ok';
 		$menu = $repositoryNav->find($id);
 		$menu->setName($title);
+		$menu->setPermalink($this->translit($title));
 		$em->persist($menu);
 		$em->flush();
 		
@@ -311,10 +312,9 @@ class DefaultController extends Controller
 		$title = $request['title'];
 		$id = $request['id'];
 		$menu = $repositoryNav->find($id);
-		
 		$nav = new Entity\Navigation;
 		$nav->setName($title);
-		$nav->setPermalink('');
+		$nav->setPermalink($this->translit($title));
 		$nav->setParent($menu);
 		$nav->setToplevel(0);
 		$em->persist($nav);
@@ -352,6 +352,21 @@ class DefaultController extends Controller
 		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
 		$responce = new Response( $data, 200, $headers );
 		return $responce;
+	}
+	
+	private function translit($str)
+	{
+		$toreplace = array("А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С",
+			"Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ь", "Ы", "Ъ", "Э", "Ю", "Я",
+			"а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с",
+			"т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ь", "ы", "ъ", "э", "ю", "я", " "
+		);
+		$replacement = array("a", "b", "v", "g", "d", "ye", "yo", "zh", "z", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s",
+			"t", "u", "f", "kh", "ts", "ch", "sh", "shch", "", "y", "", "e", "yu", "ya",
+			"a", "b", "v", "g", "d", "ye", "yo", "zh", "z", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s",
+			"t", "u", "f", "kh", "ts", "ch", "sh", "shch", "", "y", "", "e", "yu", "ya", "_"
+		);
+		return str_replace($toreplace, $replacement, $str);
 	}
 
 }
