@@ -93,9 +93,9 @@ class DefaultController extends Controller
 	 */
 	public function testAction()
 	{
-		$images = $this->get('image.handling')->open('http://www.shtern.ru/storage/photos/21/0_ekatirina-stern-d913ba37d4d1b2b1c115a625a41d854e.jpg');
-		$images->zoomCrop(100,100);
-		$images->save('test.jpg');
+//		$images = $this->get('image.handling')->open('http://www.shtern.ru/storage/photos/21/0_ekatirina-stern-d913ba37d4d1b2b1c115a625a41d854e.jpg');
+//		$images->zoomCrop(100,100);
+//		$images->save('test.jpg');
 		return array('img' => 'test.jpg');
 	}
 	
