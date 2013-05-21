@@ -36,6 +36,18 @@ class DefaultController extends Controller
     {
 		return array();
     }
+	
+	/**
+     * @Route("/page/{name}", name="page")
+     * @Template()
+     */
+    public function pageAction($name)
+    {
+		$nav = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Navigation')->findOneBy(array('permalink' => $name));
+		$repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Pages');
+		$page = $repository->findOneBy(array('nav_id' => $nav->getId()));
+		return array('page' => $page);
+    }
 
 	/**
      * @Route("/gallery", name="gallery")
