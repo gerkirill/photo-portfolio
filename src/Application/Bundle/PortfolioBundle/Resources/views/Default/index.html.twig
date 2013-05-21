@@ -18,6 +18,9 @@
 			{% for img in images  %}
 				<li id="photo_{{ img.id }}" class="ui-state-default"><img class="big-image" src="/images/72x72/{{ img.url }}" /></li>
 			{% endfor %}
+			<div style="clear:both"></div>
+			<span id="{{ nav_id }}" class="btn btn-primary add-photos">Добавить фото</span>
+			<div id="uploader"></div>
 		</ul>
 	</div>
 {% endblock %}

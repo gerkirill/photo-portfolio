@@ -28,6 +28,7 @@ jQuery(function($) {
         "ui" : {
             "initially_select" : [ "item-1" ]
         },
+		"core" : { "initially_open" : [ "item-2" ] },
 		"plugins" : [  "themes", "html_data", "ui", "crrm"]
     }).bind("create.jstree", function (e, data){
 		$.post(

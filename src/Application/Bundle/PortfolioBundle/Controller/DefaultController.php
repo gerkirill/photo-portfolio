@@ -22,10 +22,10 @@ class DefaultController extends Controller
     {
         $repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
 		$images = $repository->findBy(
-			array('nav_id' => 0),
+			array('nav_id' => 1),
 			array('sort' => 'ASC', 'id' => 'DESC')
 		);
-		return array('images' => $images);
+		return array('images' => $images, 'nav_id' => 1);
     }
 	
 	/**
@@ -61,7 +61,7 @@ class DefaultController extends Controller
 			array('nav_id' => $nav->getId()),
 			array('sort' => 'ASC', 'id' => 'DESC')
 		);
-		return array('image' => $image, 'permalink' => $gallery, 'images' => $images);
+		return array('image' => $image, 'permalink' => $gallery, 'images' => $images, 'nav_id' => $nav->getId());
     }
 	
 	/**
@@ -109,9 +109,9 @@ class DefaultController extends Controller
 	}
 	
 	/**
-	 * @Route("/upload", name="upload")
+	 * @Route("/upload/{id}", name="upload")
 	 */
-	public function uploadAction()
+	public function uploadAction($id)
 	{
 		$targetDir = 'uploads';
 		
@@ -231,7 +231,7 @@ class DefaultController extends Controller
 			$image = new Entity\Image;
 			$image->setName($fileNameNew);
 			$image->setUrl($fileNameNew);
-			$image->setNav_id(0);
+			$image->setNav_id($id);
 			$image->setSort(0);
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->persist($image);
