@@ -9,6 +9,11 @@
 		<span id="rename-node" class="btn btn-info">Переименовать</span>
 	</div>
 	<div  id="cssmenu-edit">
-		{% render url('listMenu') %}
+		<ul>
+			<li id="item-0">
+				<a href='#'>Главное меню</a>
+				{% render url('listMenu') %}
+			</li>
+		</ul>
 	</div>
 </div>

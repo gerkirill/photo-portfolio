@@ -337,12 +337,18 @@ class DefaultController extends Controller
 		
 		$title = $request['title'];
 		$id = $request['id'];
-		$menu = $repositoryNav->find($id);
+		
 		$nav = new Entity\Navigation;
 		$nav->setName($title);
-		$nav->setPermalink($this->translit($title));
-		$nav->setParent($menu);
-		$nav->setToplevel(0);
+		if($id == 0){
+			$nav->setPermalink($this->translit('/design/'.$title));
+			$nav->setToplevel(1);
+		}else{
+			$nav->setPermalink($this->translit($title));
+			$menu = $repositoryNav->find($id);
+			$nav->setParent($menu);
+			$nav->setToplevel(0);
+		}
 		$em->persist($nav);
 		$em->flush();
 		$id = $nav->getId();
