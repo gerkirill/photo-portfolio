@@ -97,6 +97,20 @@ class DefaultController extends Controller
 	}
 	
 	/**
+	 * @Route("/photosEdit/{nav_id}", name="photosEdit")
+	 * @Template()
+	 */
+	public function photosEditAction($nav_id)
+	{
+		$repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Image');
+		$images = $repository->findBy(
+			array('nav_id' => $nav_id),
+			array('sort' => 'ASC', 'id' => 'DESC')
+		);
+		return array('images' => $images, 'nav_id' => $nav_id);
+	}
+	
+	/**
 	 * @Route("/test", name="test")
 	 * @Template()
 	 */
