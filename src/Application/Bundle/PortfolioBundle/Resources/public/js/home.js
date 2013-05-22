@@ -120,6 +120,8 @@ jQuery(function($) {
 	});
 	$('.text-save').click(function(){
 		var str = $('.tinyEdit').html();
+		var id = $(this).attr('id');
 		$('.text-container').html(str);
+		$.post('/design/pageSave', {id : id, text : str});
 	});
 });

@@ -48,6 +48,28 @@ class DefaultController extends Controller
 		$page = $repository->findOneBy(array('nav_id' => $nav->getId()));
 		return array('page' => $page);
     }
+	
+	/**
+     * @Route("/pageSave", name="pageSave")
+     */
+    public function pageSaveAction()
+    {
+		$request = $this->getRequest()->request->all();
+		$em = $this->getDoctrine()->getEntityManager();
+		$repository = $em->getRepository('ApplicationPortfolioBundle:Pages');
+		
+		$id = $request['id'];
+		$text = $request['text'];
+		$page = $repository->find($id);
+		$page->setText($text);
+		$em->persist($page);
+		$em->flush();
+		
+		$data = json_encode(array('result' => 'ok'));
+		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
+		$responce = new Response( $data, 200, $headers );
+		return $responce;
+    }
 
 	/**
      * @Route("/gallery", name="gallery")
