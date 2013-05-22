@@ -113,10 +113,13 @@ jQuery(function($) {
         }
 	});
 	// tinyMce
-
 	tinymce.init({
 		inline : true,
 		selector: "div.tinyEdit",
 		language: "ru"
+	});
+	$('.text-save').click(function(){
+		var str = $('.tinyEdit').html();
+		$('.text-container').html(str);
 	});
 });
