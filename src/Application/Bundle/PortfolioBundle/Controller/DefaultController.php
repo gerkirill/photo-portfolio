@@ -34,7 +34,7 @@ class DefaultController extends Controller
      */
     public function aboutAction()
     {
-		return array();
+		return array('name' => 'about');
     }
 	
 	/**
@@ -43,7 +43,7 @@ class DefaultController extends Controller
      */
     public function pageAction($name)
     {
-		$nav = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Navigation')->findOneBy(array('permalink' => $name));
+		$nav = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Navigation')->findOneBy(array('permalink' => '/design/'.$name));
 		$repository = $this->getDoctrine()->getRepository('ApplicationPortfolioBundle:Pages');
 		$page = $repository->findOneBy(array('nav_id' => $nav->getId()));
 		return array('page' => $page);

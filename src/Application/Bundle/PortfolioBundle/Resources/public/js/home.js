@@ -112,4 +112,11 @@ jQuery(function($) {
 			}
         }
 	});
+	// tinyMce
+
+	tinymce.init({
+		inline : true,
+		selector: "div.tinyEdit",
+		language: "ru"
+	});
 });
