@@ -4,7 +4,7 @@ namespace Application\Bundle\PortfolioBundle\Service;
 use JMS\DiExtraBundle\Annotation\Service;
 
 /**
- * @Service("portfolio.uploader", public=true) изменение для теста
+ * @Service("portfolio.uploader", public=true)
  */
 class Uploader
 {
@@ -28,6 +28,28 @@ class Uploader
 		$this->cleanupTargetDir = $settings['cleanupTargetDir'];
 		$this->maxFileAge = $settings['maxFileAge'];
 		$this->time_limit = $settings['time_limit'];
+	}
+	
+	public function savePhoto($id, $fileName)
+	{
+		$image = new Entity\Image;
+		$image->setName($fileName);
+		$image->setUrl($fileName);
+		$image->setNav_id($id);
+		$image->setSort(0);
+		$em = $this->getDoctrine()->getEntityManager();
+		$em->persist($image);
+		$em->flush();
+	}
+	
+	public function saveImg($id, $fileName)
+	{
+		$em = $this->getDoctrine()->getEntityManager();
+		$repository = $em->getRepository('ApplicationPortfolioBundle:Pages');
+		$page = $repository->find($id);
+		$page->setImg($fileName);
+		$em->persist($page);
+		$em->flush();
 	}
 }
 ?>
