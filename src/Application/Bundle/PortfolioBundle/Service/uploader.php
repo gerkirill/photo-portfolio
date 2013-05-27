@@ -17,9 +17,12 @@ class Uploader
 	protected $chunks;
 	protected $fileName;
 	
-	function __construct()
+	function __construct($request)
 	{
+		$this->fileName = $request['file'];
 		
+		if (!file_exists($this->targetDir))
+			@mkdir($this->targetDir);
 	}
 	
 	public function setSettings($settings)
@@ -30,11 +33,11 @@ class Uploader
 		$this->time_limit = $settings['time_limit'];
 	}
 	
-	public function savePhoto($id, $fileName)
+	public function savePhoto($id)
 	{
 		$image = new Entity\Image;
-		$image->setName($fileName);
-		$image->setUrl($fileName);
+		$image->setName($this->fileName);
+		$image->setUrl($this->fileName);
 		$image->setNav_id($id);
 		$image->setSort(0);
 		$em = $this->getDoctrine()->getEntityManager();
@@ -42,12 +45,12 @@ class Uploader
 		$em->flush();
 	}
 	
-	public function saveImg($id, $fileName)
+	public function saveImg($id)
 	{
 		$em = $this->getDoctrine()->getEntityManager();
 		$repository = $em->getRepository('ApplicationPortfolioBundle:Pages');
 		$page = $repository->find($id);
-		$page->setImg($fileName);
+		$page->setImg($this->fileName);
 		$em->persist($page);
 		$em->flush();
 	}
