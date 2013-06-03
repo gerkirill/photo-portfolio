@@ -17,11 +17,19 @@
 
 .fl{float:left}
 .fr{float:right}
-#menu-edit, #photo-edit, #uploader, #text-edit{display:none;}
+#menu-edit, #photo-edit, #uploader, #text-edit, #img-edit{display:none;}
 #cssmenu-edit, #photo-edit{min-width:300px;min-height:200px}
 #sortable{list-style: none;margin: 0 auto;}
 #sortable li{float: left;}
 .tinyEdit{
 	min-width:540px;
 	min-height:300px;
+}
+#login{
+	margin: 0 auto;
+	width: 200px;
+	text-align: center;
+	border: 1px solid black;
+	height: 130px;
+	padding-top: 10px;
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{% block title %}Сайт фотографа{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationportfolio/css/style.css') }}" />
+</head>
+<body>
+	<div class="wrapper">
+		<div style="margin: 150px 0px 0px 0px;">
+			{% if error %}
+				<div>{{ error.message }}</div>
+			{% endif %}
+
+			<div id="login">
+			<form action="{{ path('login_check') }}" method="post">
+				<label for="username">Username:</label>
+				<input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+				<label for="password">Password:</label>
+				<input type="password" id="password" name="_password" />
+
+				<input type="submit" name="login" />
+			</form>
+			<div>
+			<div style="clear:both"></div>
+		</div> <!-- column -->
+	</div> <!-- wrapper -->
+</body>
+</html>

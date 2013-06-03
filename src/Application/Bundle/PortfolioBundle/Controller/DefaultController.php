@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use Application\Bundle\PortfolioBundle\Entity;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * Class DefaultController
@@ -35,6 +37,29 @@ class DefaultController extends Controller
     public function aboutAction()
     {
 		return array('name' => 'about');
+    }
+	
+	/**
+     * @Route("/login", name="login")
+     * @Template()
+     */
+    public function loginAction()
+    {
+		$request = $this->getRequest();
+		$session = $request->getSession();
+		
+		// получить ошибки логина, если таковые имеются
+		if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+        }
+		
+		return array(
+            // имя, введённое пользователем в последний раз
+            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+            'error'         => $error,
+        );
     }
 	
 	/**
@@ -158,6 +183,7 @@ class DefaultController extends Controller
 	
 	/**
 	 * @Route("/upload/{id}", name="upload")
+	 * @Secure(roles="ROLE_ADMIN")
 	 */
 	public function uploadAction($id)
 	{
@@ -292,7 +318,23 @@ class DefaultController extends Controller
 	}
 	
 	/**
+	 * @Route("/uploadImg", name="uploadImg")
+	 * @Secure(roles="ROLE_ADMIN")
+	 */
+	public function uploadImgAction()
+	{
+		$request = $this->getRequest()->request->all();
+		var_dump($request);
+		
+		$data = json_encode(array('result' => 'ok'));
+		$headers = array( 'Content-type' => 'application-json; charset=utf8' );
+		$responce = new Response( $data, 200, $headers );
+		return $responce;
+	}
+	
+	/**
 	 * @Route("/sortable", name="sortable")
+	 * @Secure(roles="ROLE_ADMIN")
 	 */
 	public function sortableAction()
 	{
@@ -316,6 +358,7 @@ class DefaultController extends Controller
 	
 	/**
 	 * @Route("/photo-edit", name="photoEdit")
+	 * @Secure(roles="ROLE_ADMIN")
 	 */
 	public function photoEditAction()
 	{
@@ -352,6 +395,7 @@ class DefaultController extends Controller
 	
 	/**
 	 * @Route("/menu-edit", name="menuEdit")
+	 * @Secure(roles="ROLE_ADMIN")
 	 */
 	public function menuEditAction()
 	{
@@ -376,6 +420,7 @@ class DefaultController extends Controller
 	
 	/**
 	 * @Route("/menu-add", name="menuAdd")
+	 * @Secure(roles="ROLE_ADMIN")
 	 */
 	public function menuAddAction()
 	{
@@ -410,6 +455,7 @@ class DefaultController extends Controller
 	
 	/**
 	 * @Route("/menu-delete", name="menuDelete")
+	 * @Secure(roles="ROLE_ADMIN")
 	 */
 	public function menuDeleteAction()
 	{
