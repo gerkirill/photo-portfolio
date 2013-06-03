@@ -1,19 +1,24 @@
 <div id='cssmenu'>
 	{% render url('listMenu') %}
-	<a class="fancybox" href='#menu-edit'><i class="icon-pencil"></i></a>
+	{% if is_granted('ROLE_ADMIN') %}
+		<a class="fancybox" href='#menu-edit'><i class="icon-pencil"></i></a>
+	{% endif %}
 </div>
-<div id="menu-edit">
-	<div>
-		<span id="add-node" class="btn btn-primary">Добавить</span> 
-		<span id="delete-node" class="btn btn-danger">Удалить</span> 
-		<span id="rename-node" class="btn btn-info">Переименовать</span>
+
+{% if is_granted('ROLE_ADMIN') %}
+	<div id="menu-edit">
+		<div>
+			<span id="add-node" class="btn btn-primary">Добавить</span> 
+			<span id="delete-node" class="btn btn-danger">Удалить</span> 
+			<span id="rename-node" class="btn btn-info">Переименовать</span>
+		</div>
+		<div  id="cssmenu-edit">
+			<ul>
+				<li id="item-0">
+					<a href='#'>Главное меню</a>
+					{% render url('listMenu') %}
+				</li>
+			</ul>
+		</div>
 	</div>
-	<div  id="cssmenu-edit">
-		<ul>
-			<li id="item-0">
-				<a href='#'>Главное меню</a>
-				{% render url('listMenu') %}
-			</li>
-		</ul>
-	</div>
-</div>
+{% endif %}

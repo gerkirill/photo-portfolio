@@ -1,14 +1,30 @@
 <table>
 	<tr>
 		<td style="width: 40%;">
-			<a class="fancybox" href='#text-edit'><i class="icon-pencil"></i></a>
-			<div style="clear:both"></div>
+			{% if is_granted('ROLE_ADMIN') %}
+				<a class="fancybox" href='#text-edit'><i class="icon-pencil"></i></a>
+				<div style="clear:both"></div>
+			{% endif %}
 			<div class="text-container">{{ page.text|raw }}</div>
 		</td>
-		<td class="photo-container"><img class="big-image" src="http://www.shtern.ru/storage/photos/21/0_ekatirina-stern-d913ba37d4d1b2b1c115a625a41d854e.jpg" style="width:100%"/></td>
+		<td class="photo-container">
+			{% if is_granted('ROLE_ADMIN') %}
+				<a class="fancybox" href='#img-edit'><i class="icon-pencil"></i></a>
+			{% endif %}
+			<img class="big-image" src="http://www.shtern.ru/storage/photos/21/0_ekatirina-stern-d913ba37d4d1b2b1c115a625a41d854e.jpg" style="width:100%"/>
+		</td>
 	</tr>
 </table>
-<div id="text-edit">
-	<div class="tinyEdit">{{ page.text|raw }}</div>
-	<span id="{{ page.id }}" class="btn text-save">Сохранить</span>
-</div>
+{% if is_granted('ROLE_ADMIN') %}
+	<div id="text-edit">
+		<div class="tinyEdit">{{ page.text|raw }}</div>
+		<span id="{{ page.id }}" class="btn text-save">Сохранить</span>
+	</div>
+
+	<div id="img-edit">
+		<form action="/design/uploadImg" method="post">
+			<input type="file" name="filename" /><br/>
+			<input type="submit" class="btn" value="Загрузить" />
+		</form>
+	</div>
+{% endif %}

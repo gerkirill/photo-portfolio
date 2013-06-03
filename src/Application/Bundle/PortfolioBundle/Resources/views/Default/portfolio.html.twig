@@ -5,10 +5,14 @@
 		{% render url('slider', {'gallery' : permalink }) %}
 
 		<div class="big-image-container">
-			<a class="fancybox" href='#photo-edit'><i class="icon-pencil"></i></a>
+			{% if is_granted('ROLE_ADMIN') %}
+				<a class="fancybox" href='#photo-edit'><i class="icon-pencil"></i></a>
+			{% endif %}
 			<img class="big-image" src="/images/705x470/{{ image.url }}" style="width:100%"/>
 		</div>
 
 	</div>
-	{% render url('photosEdit', {'nav_id' : nav_id }) %}
+	{% if is_granted('ROLE_ADMIN') %}
+		{% render url('photosEdit', {'nav_id' : nav_id }) %}
+	{% endif %}
 {% endblock %}
