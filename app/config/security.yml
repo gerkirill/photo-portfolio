@@ -28,9 +28,7 @@ security:
 
         secured_area:
             pattern:    ^/design
-            form_login:
-                check_path: /login_check
-                login_path: /login
+            form_login: ~
             logout: ~
             anonymous: ~
             #http_basic:
@@ -38,3 +36,4 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/design/login_check, roles: ROLE_ADMIN}

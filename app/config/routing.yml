@@ -7,4 +7,3 @@ login:
     defaults:  { _controller: ApplicationPortfolioBundle:Default:login }
 login_check:
     pattern:   /design/login_check
-    defaults:  { _controller: ApplicationPortfolioBundle:Default:login_check }
